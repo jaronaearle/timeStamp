@@ -28,13 +28,16 @@ func GetUnixTimeStamp() (int, int, error) {
 
 	today := time.Now().Weekday()
 	todayInt := int(today)
-
-	dta := daysToAdd(mon, todayInt)
-
 	secsElapsed := unixInt % unixDay
 
-	start = (unixInt + (dta * unixDay) - secsElapsed)
-	end = (unixInt + ((dta + 7) * unixDay) - secsElapsed)
+	if todayInt != 1 {
+		dta := daysToAdd(mon, todayInt)
+		start = (unixInt + (dta * unixDay) - secsElapsed)
+		end = (unixInt + ((dta + 7) * unixDay) - secsElapsed)
+	} else {
+		start = (unixInt + (7 * unixDay) - secsElapsed)
+		end = (unixInt + (14 * unixDay) - secsElapsed)
+	}
 
 	return start, end, nil
 }
