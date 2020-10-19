@@ -23,18 +23,18 @@ func GetUnixTimeStamp() (int, int, error) {
 	var start int
 	var end int
 
-	timeNow := time.Now().Unix()
-	unixNow := int(timeNow)
+	unixNow := time.Now().Unix()
+	unixInt := int(unixNow)
 
-	tt := time.Now().Weekday()
-	it := int(tt)
+	today := time.Now().Weekday()
+	todayInt := int(today)
 
-	dta := daysToAdd(mon, it)
+	dta := daysToAdd(mon, todayInt)
 
-	secs := unixNow % unixDay
+	secsElapsed := unixInt % unixDay
 
-	start = (unixNow + (dta * unixDay) - secs)
-	end = (unixNow + ((dta + 7) * unixDay) - secs)
+	start = (unixInt + (dta * unixDay) - secsElapsed)
+	end = (unixInt + ((dta + 7) * unixDay) - secsElapsed)
 
 	return start, end, nil
 }
